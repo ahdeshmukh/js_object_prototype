@@ -1,0 +1,14 @@
+Javascript objects are dynamic
+
+eg: if you create a new object 
+var dog = {name: 'Cable', breed: 'Lab/boxer mix'};
+
+now, if you want to add age property, you do not need to add it to the object literal defined above. you can just do
+dog.age = 1.5;
+
+you can also add functions like
+dog.speak = function() {
+	console.log('Bark Bark');
+};
+
+and invoke it using dog.speak();

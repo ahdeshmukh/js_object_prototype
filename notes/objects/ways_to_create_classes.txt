@@ -1,0 +1,32 @@
+There are different ways to create objects in js
+
+1) Using object literals
+	var dog = {name: 'Cable', breed: 'Lab/Boxer mix'};
+	console.log(dog);
+	
+2) using constructor functions
+	function Dog(name, breed) {
+		this.name = name;
+		this.breed = breed;
+	}
+	
+	var dog = new Dog('Cable', 'Lab/Boxer mix');
+	console.log(dog);
+	
+	
+3) ES6 classes
+	class Dog {
+		constructor(name, breed) {
+			this.name = name;
+			this.breed = breed;
+		}
+		
+		speak() {
+			console.log('Bark Bark');
+		}
+	}
+	
+	var dog = new Dog('Cable', 'Lab/Boxer mix');
+	
+	console.log(dog);
+	dog.speak();

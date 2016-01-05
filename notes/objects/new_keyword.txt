@@ -1,0 +1,26 @@
+javascript doe snot have classes in the same sense as a static language (java, c#).
+the new ECMA6 has class like syntax, but they are still not like classes in static language
+
+But we can allow the same behavior of the class without loosing the dynamic nature of js object.
+This is possible due to new keyword.
+
+The new keyword is followed by a function to initialize the object like
+
+function Dog() {
+	this.name = 'Cable';
+	this.breed = 'Lab/Boxer mix';
+}
+
+var dog = new Dog();
+console.log(dog);
+
+
+function Dog is a simple function and is just setting properties on object created by this and sets value on those property
+
+Understanding the this keyword
+- The this keyword refers to an object which is executing the current bit of code.
+- By default it is the global object ( in browser it is the window object)
+- this keyword creates a new empty js object, and then calls the Dog function
+- if we do not use the new keyword, and just do
+	var dog = Dog(), this keyword will refer to the window object. if you do console.log(window.name), it will display Cable. 
+	( special note: never change the name property on window object as it can mess with the browser. so to view above example in action, comment this.name = 'Cable'; and instead do a console.log(window.breed), you should see 'Lab/Boxer mix' )

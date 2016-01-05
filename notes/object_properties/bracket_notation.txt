@@ -1,0 +1,9 @@
+we can access object properties using bracket notation as follows
+
+var dog = {name: 'Cable', breed: 'Lab/Boxer mix'};
+console.log(dog['breed']);
+
+In most cases, we should use dog.breed instead of dog['breed'], but in case if the property name is not a valid identifier
+eg: if you want a property name 'Eye Color', then we can  need to use dog['Eye Color], as we cannot use dog.Eye Color
+
+usually you should avoid these kind of property names, but this is handy in case you have to create an object from values entered by a user or from json data coming from external source.

@@ -1,0 +1,10 @@
+var dog = {name: 'Cable', breed: 'Lab/Boxer mix'};
+display(Object.getOwnPropertyDescriptor(dog, 'name'));
+
+will print 
+Object {
+	value: Cable
+	writable: true
+	enumerable: true
+	configurable: true
+}
