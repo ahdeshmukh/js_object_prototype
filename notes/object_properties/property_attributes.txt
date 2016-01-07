@@ -1,6 +1,5 @@
 var dog = {name: 'Cable', breed: 'Lab/Boxer mix'};
 display(Object.getOwnPropertyDescriptor(dog, 'name'));
-
 will print 
 Object {
 	value: Cable
@@ -8,3 +7,18 @@ Object {
 	enumerable: true
 	configurable: true
 }
+
+Writable: Defines whether the properties value can be changed from it's initial value
+To make the name property non writable in var dog = {name: 'Cable', breed: 'Lab/Boxer mix'}; we can do
+Object.defineProperty(dog, 'name', {writable: false});
+Now if you try to do dog.name = 'Fido'; you can see in the console that JS throws an error ( Note: this error only gets thrown in strict mode. so it is one of the reason why we should always use 'use strict')
+
+now if the property contains an object, you can change the properties of the object
+eg: var dog = {name: {first: 'Cable', last: 'Dog'}, breed: 'Lab/Boxer mix'};
+Object.defineProperty(dog, 'name', {writable: false});
+dog.name.first = 'Cable123';
+console.log(dog);
+In this case you will notice that the value of dog.name.first got successfully updated to 'Cable123', even though dog.name was not writable.
+This makes sense since each property is actually a pointer, and not exactly a string.
+If you want to make sure that if the value of a property is an object and it remains non writable, you have to use freeze as follows
+Object.freeze(dog.name);
