@@ -8,7 +8,8 @@ Object {
 	configurable: true
 }
 
-Writable: Defines whether the properties value can be changed from it's initial value
+Writable: 
+Defines whether the properties value can be changed from it's initial value
 To make the name property non writable in var dog = {name: 'Cable', breed: 'Lab/Boxer mix'}; we can do
 Object.defineProperty(dog, 'name', {writable: false});
 Now if you try to do dog.name = 'Fido'; you can see in the console that JS throws an error ( Note: this error only gets thrown in strict mode. so it is one of the reason why we should always use 'use strict')
@@ -19,6 +20,56 @@ Object.defineProperty(dog, 'name', {writable: false});
 dog.name.first = 'Cable123';
 console.log(dog);
 In this case you will notice that the value of dog.name.first got successfully updated to 'Cable123', even though dog.name was not writable.
-This makes sense since each property is actually a pointer, and not exactly a string.
+This makes sense since each property is actually a pointer, and not exactly a value
 If you want to make sure that if the value of a property is an object and it remains non writable, you have to use freeze as follows
 Object.freeze(dog.name);
+
+
+Enumerable: Ability to loop over ( eg for loop )
+Defines whether we can loop over the Object property
+To make the name property non enumerablein var dog = {name: 'Cable', breed: 'Lab/Boxer mix'}; we can do
+Object.defineProperty(dog, 'name', {enumerable: false});
+Now if you do
+for (var propertyName in dog) {
+	console.log(propertyName);
+}
+you won't see name property
+Also you cannot see name property if you do console.log(Object.keys(dog));
+If the property is non-enumerable, it will not be included if you try to JSON serialize the object
+eg:
+var dog = {name: 'Cable', breed: 'Lab/Boxer mix'}; we can do
+Object.defineProperty(dog, 'name', {enumerable: false});
+console.log(JSON.stringify(dog)); will only display {"breed":"Lab/Boxer mix"}
+
+Configurable: Prevents enumerable attribute of the property from being changed. you can still change the writable attribute. Also prevents the property from getting deleted
+To make the name property non configurablevar dog = {name: 'Cable', breed: 'Lab/Boxer mix'}; we can do
+Object.defineProperty(dog, 'name', {configurable: false});
+Now if you try to do change enumerable attribute js will throw an error in console.
+Interesting to note is, once you do
+Object.defineProperty(dog, 'name', {configurable: false}); then even if you do
+Object.defineProperty(dog, 'name', {configurable: true}); on the next line, js will throw an error
+Also you will get an error if you try to do, delete dog.name;
+
+
+Getters and Setters
+These are attributes on the property that allow us to specify the return value of the property using a function and set the value of property using a function.
+
+var dog = {name: {first: 'Cable', last: 'Dog'}, breed: 'Lab/Boxer mix'};
+Object.defineProperty(dog, 'fullName', {
+	get: function() {
+		return this.name.first + ' ' + this.name.last;
+	},
+	set: function(value) {
+		var nameParts = value.split(' ');
+		this.name.first = nameParts[0];
+		this.name.last = nameParts[1];
+	}
+});
+console.log(dog.fullName); // will display Cable Dog
+dog.fullName = 'Crazy Boy'; // will set name.first to Crazy and name.last to Boy
+console.log(dog.fullName); // will display Crazy Boy
+console.log(dog.name.first); // will display Crazy - this confirms the value of name.first in the object has changed
+console.log(dog.name.last); // will display Boy - this confirms the value of name.last in the object has changed
+
+
+
